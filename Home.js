@@ -24,6 +24,13 @@ nextButton.addEventListener("click", () => {
     behavior: "smooth",
   });
 });
+// Add event listener to the slider container
+slider.addEventListener("click", function(event) {
+  if (event.target.tagName === "IMG") {
+    const id = event.target.id; 
+    ChangingBackGroundIMG(Number(id)); 
+  }
+});
 
 //   Async Methods
 async function GetTrendingData() {
@@ -60,9 +67,9 @@ async function UpdatingTrendingUi(){
   let content = "";
   for (let i = 0; i < result.length; i++) {
     content += `<img
-      class="w-36 h-52 rounded-lg hover:scale-105 transition-transform "
+      class="w-36 h-52 rounded-lg hover:scale-105 transition-transform cursor-pointer "
       src="${baseImageUrl}${result[i].poster_path}"
-      alt="Movie 1"
+      alt="Movie ${result[i]}"
       id ="${result[i].id}"
       
     />`;
@@ -74,15 +81,10 @@ async function UpdatingTrendingUi(){
   posterTitle.innerHTML =name;
   posterDetails.innerHTML= selectedItem.overview;
 
-  // Add event listener to the slider container
-  slider.addEventListener("click", function(event) {
-    if (event.target.tagName === "IMG") {
-      const id = event.target.id; 
-      ChangingBackGroundIMG(Number(id)); 
-    }
-  });
+  
  
 }
+
 
 async function ChangingBackGroundIMG(id) {
   const result = await GetTrendingData();
